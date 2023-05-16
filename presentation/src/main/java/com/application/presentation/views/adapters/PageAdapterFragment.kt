@@ -13,6 +13,7 @@ class PageAdapterFragment(fragmentManager: FragmentManager, lifecycle: Lifecycle
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
+            // Como reutilicé un solo fragment, solo le envío la position para saber en que tab está y filtrar la información del pager
             0 -> FilmsFragment.newInstance(position)
             1 -> FilmsFragment.newInstance(position)
             2 -> FilmsFragment.newInstance(position)

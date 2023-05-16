@@ -26,6 +26,7 @@ class FilmsViewModel @Inject constructor(
     val viewState: LiveData<FilmViewState> = _viewState
 
     fun loadDataMovies() {
+        // Trae la data de toda la lista de peliculas y series
         viewModelScope.launch {
             when (val result = filmUseCase.getFilms()) {
                 is ObjectResult.Success -> {

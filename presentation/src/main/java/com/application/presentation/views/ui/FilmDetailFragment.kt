@@ -14,6 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class FilmDetailFragment : FilmFragment(), ListFilmActivity.IOnBackPressed {
+    //Este es un ejemplo de la clase detalle cuando un elemento sea seleccionado de una lista.
 
     private lateinit var binding: FragmentMovieDetailBinding
     private val rootViewModel: FilmsViewModel by activityViewModels()

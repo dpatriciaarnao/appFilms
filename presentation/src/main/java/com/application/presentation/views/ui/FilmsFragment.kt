@@ -34,6 +34,7 @@ class FilmsFragment() : FilmFragment() {
 
     fun initialize() {
 
+        // Se trae el argumento desde el adapter con la position y dependiendo de ella se coloca en la variable en el xml el texto.
         arguments?.let {
             paramPosition = it.getInt(POSITION)
             when (paramPosition) {
@@ -55,9 +56,11 @@ class FilmsFragment() : FilmFragment() {
             }
         }
 
+        // Se cargan las peliculas y series desde el API
         initObserver()
         rootViewModel.loadDataMovies()
 
+        //Se instancia el adapter y se coloca un ejemplo si el elemento es seleccionado en la lista para traer el detalle.
         filmsAdapter = FilmsAdapterList(
             object : FilmsAdapterList.FilmsAdapterListListener {
                 override fun onClickDetail(film: Film) {
@@ -72,6 +75,7 @@ class FilmsFragment() : FilmFragment() {
             }
         )
 
+        // Se rellena el adapter
         binding.recyclerViewFilm.adapter = filmsAdapter
         binding.recyclerViewFilm.addItemDecoration(
             DividerItemDecoration(
@@ -93,6 +97,7 @@ class FilmsFragment() : FilmFragment() {
                 }
 
                 is FilmViewState.LoadData.Success -> {
+                    //Se valida la position para saber que tabs se invocará y la información que se filtrará.
                     when (paramPosition) {
                         0 -> {
                             filmsAdapter.submitList(it.films)
@@ -117,6 +122,7 @@ class FilmsFragment() : FilmFragment() {
     }
 
     companion object {
+        //Se trae el parámetro position
         private const val POSITION = "position"
         val TAG = FilmsFragment::javaClass.name
         fun newInstance(position: Int) = FilmsFragment().also {

@@ -18,7 +18,9 @@ abstract class FilmActivity(
         super.onCreate(savedInstanceState, persistentState)
     }
 
+
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        // Este método sirve para manejar el volumen del dispositivo
         when (keyCode) {
             KeyEvent.KEYCODE_VOLUME_DOWN -> {
             }

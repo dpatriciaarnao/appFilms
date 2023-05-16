@@ -16,6 +16,7 @@ class FilmsAdapterList(
     ListAdapter<Film, FilmsAdapterList.ViewHolder>(FilmsAdapterListDiffCallback()) {
 
     interface FilmsAdapterListListener {
+        // Este método servirá para cuando se desee hacer click sobre el elemento de la lista y traer el detalle
         fun onClickDetail(film: Film)
     }
 
@@ -41,6 +42,7 @@ class FilmsAdapterList(
             val context = binding.root.context
             binding.filmName.text = filmsList.name
 
+            // Click sobre el elemento para traer el detalle
             binding.clCardFilm.setOnClickListener {
                 listener.onClickDetail(filmsList)
             }

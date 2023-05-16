@@ -30,6 +30,7 @@ class ListFilmActivity : FilmActivity() {
 
     fun initializeTabs() {
 
+        // Se inicializan los tabs
         binding.tabTypesFilms.addTab(binding.tabTypesFilms.newTab().setText("All"))
         binding.tabTypesFilms.addTab(binding.tabTypesFilms.newTab().setText("Movies"))
         binding.tabTypesFilms.addTab(binding.tabTypesFilms.newTab().setText("Series"))
@@ -61,6 +62,7 @@ class ListFilmActivity : FilmActivity() {
     }
 
     override fun onBackPressed() {
+        //Método para manejar onBackPressed
         val fragment = this.supportFragmentManager.findFragmentById(R.id.main_container)
         (fragment as? IOnBackPressed)?.onBackPressed()?.not()?.let { isCanceled: Boolean ->
             if (!isCanceled) super.onBackPressed()
