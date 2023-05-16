@@ -1,0 +1,77 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'dagger.hilt.android.plugin'
+    id 'kotlin-android'
+    id 'kotlin-parcelize'
+    id 'kotlin-kapt'
+    id 'org.jlleitschuh.gradle.ktlint'
+
+}
+
+android {
+    compileSdkVersion rootProject.ext.compile_sdk_version
+
+    defaultConfig {
+        applicationId "com.application.movies"
+        minSdk rootProject.ext.min_sdk_version
+        targetSdk rootProject.ext.target_sdk_version
+        versionCode rootProject.ext.version_code
+        versionName rootProject.ext.version_name
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.example.android.dagger.CustomTestRunner"
+    }
+
+    defaultConfig {
+        multiDexEnabled = true
+    }
+
+    buildTypes {
+        debug {
+            //applicationIdSuffix '.qa'
+            //versionNameSuffix 'QA'
+            minifyEnabled false
+            debuggable true
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        dataBinding true
+    }
+    namespace 'com.application.movies'
+}
+
+dependencies {
+
+    implementation "androidx.core:core-ktx:$core_ktx"
+    implementation "androidx.appcompat:appcompat:$appcompat"
+    implementation "com.google.android.material:material:$material"
+    implementation "androidx.constraintlayout:constraintlayout:$constraintlayout"
+    testImplementation "junit:junit:$junit"
+
+    //Retrofit
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit2_converter_gson"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit2"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp3_logging_interceptor"
+    implementation "com.squareup.okhttp3:okhttp:$okhttp3"
+
+    //HILT
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_compiler_version"
+    implementation "androidx.multidex:multidex:$multidex_version"
+
+    //Gson
+    implementation "com.google.code.gson:gson:$gson"
+
+    implementation project(path: ':presentation')
+    implementation project(path: ':usecases')
+    implementation project(path: ':repository')
+
+}
