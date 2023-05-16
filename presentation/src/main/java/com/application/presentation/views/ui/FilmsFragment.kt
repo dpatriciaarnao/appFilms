@@ -14,10 +14,11 @@ import com.application.presentation.views.base.FilmFragment
 import com.application.presentation.views.viewmodels.FilmViewState
 import com.application.presentation.views.viewmodels.FilmsViewModel
 
-class MoviesFragment : FilmFragment() {
+class FilmsFragment() : FilmFragment() {
     private lateinit var binding: FragmentFilmsBinding
     private val rootViewModel: FilmsViewModel by viewModels()
     private lateinit var filmsAdapter: FilmsAdapterList
+    private var paramPosition: Int? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,12 +27,33 @@ class MoviesFragment : FilmFragment() {
     ): View? {
         binding = FragmentFilmsBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.label = "Movies"
         initialize()
         return binding.root
     }
 
+
     fun initialize() {
+
+        arguments?.let {
+            paramPosition = it.getInt(POSITION)
+            when (paramPosition) {
+                0 -> {
+                    binding.label = "All movies and series"
+                }
+
+                1 -> {
+                    binding.label = "Movies"
+                }
+
+                2 -> {
+                    binding.label = "Series"
+                }
+
+                else -> {
+                    binding.label = "All movies and series"
+                }
+            }
+        }
 
         initObserver()
         rootViewModel.loadDataMovies()
@@ -71,7 +93,24 @@ class MoviesFragment : FilmFragment() {
                 }
 
                 is FilmViewState.LoadData.Success -> {
-                    filmsAdapter.submitList(it.films.filter { it.type == "MOVIE" })
+                    when (paramPosition) {
+                        0 -> {
+                            filmsAdapter.submitList(it.films)
+                        }
+
+                        1 -> {
+                            filmsAdapter.submitList(it.films.filter { it.type == "MOVIE" })
+                        }
+
+                        2 -> {
+                            filmsAdapter.submitList(it.films.filter { it.type == "SERIES" })
+                        }
+
+                        else -> {
+                            filmsAdapter.submitList(it.films)
+                        }
+                    }
+
                 }
             }
         }
@@ -79,8 +118,8 @@ class MoviesFragment : FilmFragment() {
 
     companion object {
         private const val POSITION = "position"
-        val TAG = AllFilmsFragment::javaClass.name
-        fun newInstance(position: Int) = AllFilmsFragment().also {
+        val TAG = FilmsFragment::javaClass.name
+        fun newInstance(position: Int) = FilmsFragment().also {
             it.arguments = Bundle().also { b -> b.putInt(POSITION, position) }
         }
     }
