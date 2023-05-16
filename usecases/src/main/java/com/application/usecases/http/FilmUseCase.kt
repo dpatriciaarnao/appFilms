@@ -9,7 +9,6 @@ import com.application.repository.remote.models.exception.NetworkException
 import dagger.hilt.android.qualifiers.ApplicationContext
 
 class FilmUseCase(
-    @ApplicationContext private val context: Context,
     private val filmDataSource: IFilmDataSource
 ) {
 

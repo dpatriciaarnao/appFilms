@@ -19,7 +19,6 @@ object UseCasesModule {
         @ApplicationContext context: Context,
         filmDataSource: IFilmDataSource
     ): FilmUseCase = FilmUseCase(
-        context,
         filmDataSource
     )
 }

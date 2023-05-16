@@ -64,11 +64,17 @@ dependencies {
 
     //HILT
     implementation "com.google.dagger:hilt-android:$hilt_version"
+    testImplementation project(path: ':entities')
     kapt "com.google.dagger:hilt-android-compiler:$hilt_compiler_version"
     implementation "androidx.multidex:multidex:$multidex_version"
 
     //Gson
     implementation "com.google.code.gson:gson:$gson"
+
+    testImplementation 'junit:junit:4.+'
+    testImplementation 'io.mockk:mockk:1.12.2'
+    androidTestImplementation('androidx.test.ext:junit:1.1.5')
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.5.1')
 
     implementation project(path: ':presentation')
     implementation project(path: ':usecases')
